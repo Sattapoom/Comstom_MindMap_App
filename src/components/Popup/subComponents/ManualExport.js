@@ -71,14 +71,31 @@ const ManualExport = ({ handleClosePopup }) => {
     list.forEach((e) => {
       idlist.push(e.id);
     });
+    if (localStorage.getItem("Idcheck") && JSON.stringify(JSON.parse(localStorage.getItem("Idcheck"))) !== JSON.stringify(idlist)) {
+      console.log(JSON.parse(localStorage.getItem("Idcheck")),idlist);
+      localStorage.removeItem("checkedState");
+      localStorage.removeItem("disableState");
+      localStorage.removeItem("Idcheck");
+    } else if (localStorage.getItem("checkedState") && localStorage.getItem("disableState") && localStorage.getItem("Idcheck")) {
+      setCheckedState(JSON.parse(localStorage.getItem("checkedState")));
+      setDisableState(JSON.parse(localStorage.getItem("disableState")));
+      setIdCheck(JSON.parse(localStorage.getItem("Idcheck")));
+      return;
+    }
     setCheckedState(new Array(list.length).fill(true));
     setDisableState(new Array(list.length).fill(false));
     setIdCheck(idlist);
+    
   }, []);
   useEffect(() => {
     onChangeSearchList(refreshSearchList(keyword, mindmap));
     setCursor(0);
   }, [keyword]);
+  useEffect(() => {
+    localStorage.setItem("checkedState", JSON.stringify(checkedState));
+    localStorage.setItem("disableState", JSON.stringify(disableState));
+    localStorage.setItem("Idcheck", JSON.stringify(Idcheck));
+  },[checkedState,Idcheck,disableState])
 
   const changeCursorIndex = (adder) => {
     if (cursor === 0 && adder === -1) {
