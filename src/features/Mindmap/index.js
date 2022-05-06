@@ -29,7 +29,7 @@ const Mindmap = ({ container_ref }) => {
     history: { dispatch: hDispatch },
     global: { state: gState },
   } = useContext(context);
-  const [eye, setEye] = useState(true);
+  const [showGuide, setShowGuide] = useState(false);
   const historyHook = useHistory();
   const mindmapHook = useMindmap();
   const zoomHook = useZoom();
@@ -147,12 +147,12 @@ const Mindmap = ({ container_ref }) => {
     <div>
       <div
         style={{
-          top: "100px",
-          right: "50px",
+          bottom: "0%",
+          right: "1%",
           display: "flex",
           flexDirection: "column",
           position: "absolute",
-          left: "130px",
+          zIndex: "1",
         }}
       >
         <h6
@@ -160,8 +160,8 @@ const Mindmap = ({ container_ref }) => {
             marginBottom: "auto",
             justifyContent: "center",
             alignItems: "center",
-            opacity: eye ? 0.45 : 0,
-            fontSize: "20px",
+            opacity: showGuide ? 0.45 : 0,
+            fontSize: "15px",
           }}
         >
           Alt + Left Mouse or Middle mouse to move freely
@@ -172,7 +172,7 @@ const Mindmap = ({ container_ref }) => {
               marginLeft: "5px",
               alignItems: "center",
               verticalAlign: "middle",
-              opacity: eye ? 0.45 : 0,
+              opacity: showGuide ? 0.45 : 0,
             }}
           ></FontAwesomeIcon>
         </h6>
@@ -181,8 +181,8 @@ const Mindmap = ({ container_ref }) => {
             marginTop: "auto",
             justifyContent: "center",
             alignItems: "center",
-            opacity: eye ? 0.45 : 0,
-            fontSize: "20px",
+            opacity: showGuide ? 0.45 : 0,
+            fontSize: "15px",
           }}
         >
           Ctrl + Scroll to zoom
@@ -193,25 +193,25 @@ const Mindmap = ({ container_ref }) => {
               marginLeft: "5px",
               alignItems: "center",
               verticalAlign: "middle",
-              opacity: eye ? 0.45 : 0,
+              opacity: showGuide ? 0.45 : 0,
             }}
           ></FontAwesomeIcon>
         </h6>
         <div
           style={{
-            fontSize: "40px",
+            fontSize: "210%",
             verticalAlign: "middle",
             position: "absolute",
-            top: "50px",
-            left: "-70px",
+            bottom: "10%",
+            right: "1%",
             zIndex: "1",
           }}
         >
           <ToolButton
             onClick={() => {
-              setEye(!eye);
+              setShowGuide(!showGuide);
             }}
-            icon={eye ? "eye" : "eye-slash"}
+            icon={"info-circle"}
           ></ToolButton>
         </div>
       </div>
