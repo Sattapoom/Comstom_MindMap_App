@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { context } from "../../../context";
 import { css } from "emotion";
 import useMindmap from "../../../customHooks/useMindmap";
+import { ROOT_NODE_ID } from "../../../statics/refer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,7 +30,7 @@ const Search = ({ handleClosePopup }) => {
   const {
     mindmap: { state: mindmap },
   } = useContext(context);
-  const { selectNode, clearNodeStatus } = useMindmap();
+  const { selectNode, clearNodeStatus, expandAll } = useMindmap();
 
   const [keyword, onChangeKeyword] = useState("");
   const [searchList, onChangeSearchList] = useState([]);
@@ -37,6 +38,7 @@ const Search = ({ handleClosePopup }) => {
 
   useEffect(() => {
     clearNodeStatus();
+    expandAll(ROOT_NODE_ID);
   }, []);
 
   useEffect(() => {
